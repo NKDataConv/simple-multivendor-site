@@ -1,6 +1,5 @@
 {% load static %}
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,7 +17,7 @@
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <a class="navbar-item" href="{% url 'core:home' %}">
-                <img src="https://2.bp.blogspot.com/-mkVne3V2tzY/Xfo99c80KUI/AAAAAAAAD_c/9EbC4qu-fYAeVjLi3ONzRZ-osIW4H3qBACK4BGAYYCw/s1600/Vijay%2BThapa%2BLogo%2BHD.png" width="112" height="28">
+                    <img src="{% static 'images/logo.png' %}">
                 </a>
 
                 <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -33,59 +32,37 @@
                 <a class="navbar-item" href="{% url 'core:home' %}">
                     Home
                 </a>
-                
-                {% for category in categories %}
-                    <a class="navbar-item" href="{% url 'product:category' category.slug %}">
-                        {{category.title}}
-                    </a>
-                {% endfor %}
 
-                
+                <a class="navbar-item" href="{% url 'neighbor:become-neighbor' %}">
+                    Werde Neighbor
+                </a>
+
+                <a class="navbar-item" href="{% url 'neighbor:add-food' %}">
+                    Add food
+                </a>
+                <a class="navbar-item" href="{% url 'map' %}">
+                    Search Map
+                </a>
+                <a class="navbar-item" href="{% url 'neighbor:logout' %}">
+                    Logout
+                </a>
 
                 </div>
 
                 <div class="navbar-start">
                     <div class="navbar-item">
-                        <form method="get" action="{% url 'product:search' %}">
-                            <div class="field has-addons">
-                                <div class="control">
-                                    <input type="search" name="query" id="" class="input" placeholder="Search...">
-                                </div>
-                                <div class="control">
-                                    <button class="button is-dark is-uppercase">Search</button>
-                                </div>
-                            </div>
-                        </form>
+
                     </div>
                 </div>
 
                 <div class="navbar-end">
 
-                <div class="navbar-item">
-                    <a href="{% url 'cart:cart' %}" class="button is-warning">Cart {% if cart %}({{cart|length}}){% endif %}</a>
-                </div>
-                
                 {% if request.user.is_authenticated %}
 
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link is-capitalized">
-                    {{user.vendor.name}}
-                    </a>
 
                     <div class="navbar-dropdown">
-                    <a class="navbar-item" href="{% url 'vendor:vendor-admin' %}">
-                        Profile
-                    </a>
-                    <a class="navbar-item" href="{% url 'vendor:edit-vendor' %}">
-                        Update Profile
-                    </a>
-                    <a class="navbar-item" href="{% url 'vendor:add-product' %}">
-                        Add Product
-                    </a>
-                    <hr class="navbar-divider">
-                    <a class="navbar-item" href="{% url 'vendor:logout' %}">
-                        Logout
-                    </a>
+
                     </div>
                 </div>
 
@@ -93,12 +70,7 @@
 
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-primary" href="{% url 'vendor:become-vendor' %}">
-                            <strong>Become Vendor</strong>
-                        </a>
-                        <a class="button is-light" href="{% url 'vendor:login' %}">
-                            Log in
-                        </a>
+
                     </div>
                 </div>
 
@@ -122,15 +94,6 @@
     <footer class="footer">
         <div class="container">
             <h3 class="is-size-4 mb-4">Multi Vendor E-Commerce</h3>
-            
-            {% if request.user.is_authenticated %}
-                <a href="{% url 'vendor:vendor-admin' %}">Vendor Admin</a>
-            {% else %}
-                <a href="{% url 'vendor:become-vendor' %}">Become a Vendor</a>
-            {% endif %}
-
-            <br>
-            <a href="{% url 'vendor:vendors' %}">All Vendors</a>
 
         </div>
     </footer>

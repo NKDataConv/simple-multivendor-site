@@ -1,5 +1,13 @@
 import os
 from pathlib import Path
+import environ
+
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
+
+# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -8,10 +16,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-GOOGLE_MAPS_API_KEY = ''
+GOOGLE_MAPS_API_KEY = env("GOOGLE_MAPS_API_KEY")
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(w0xd82mx=l#v^w)83zhzwc&))6#+9&#e(87y7a8mo=)6!=vz8'
+SECRET_KEY = env("SECRET_KEY")
 
 LOCATION_FIELD = {
     'map.provider': 'openstreetmap',
@@ -34,11 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'vendor',
-    'product',
-    'cart',
-    'order',
+    #'vendor',
+    # 'product',
+    # 'cart',
+    # 'order',
     'map',
+    'neighbor',
+    'food',
+    'food_order',
 ]
 
 MIDDLEWARE = [
@@ -64,8 +75,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'product.context_processors.menu_categories',
-                'cart.context_processors.cart'
+                #'product.context_processors.menu_categories',
+                #'cart.context_processors.cart'
             ],
         },
     },
@@ -134,7 +145,7 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-LOGIN_URL = 'vendor:login'
+LOGIN_URL = 'neighbor:become-neighbor'
 LOGIN_REDIRECT_URL = 'vendor:vendor-admin'
 LOGOUT_REDIRECT_URL = 'core:home'
 
